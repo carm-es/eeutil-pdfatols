@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="LOG_FILE"
+		value="C:/d/proyectos/EEUTIL/java/workspace_EEUtils_repo_git/config_jetty/logs/eeutil-libreoffice" />
+
+	<!-- <appender name="GELF-STASH" class="biz.paluch.logging.gelf.logback.GelfLogbackAppender"> -->
+<!--   	 <host>udp:10.1.79.30</host> -->
+<!--     <port>12201</port> -->
+	<!-- <version>1.0</version> -->
+	<!-- <facility>logstash-gelf</facility> -->
+	<!-- <extractStackTrace>true</extractStackTrace> -->
+	<!-- <filterStackTrace>true</filterStackTrace> -->
+	<!-- <includeLocation>true</includeLocation> -->
+	<!-- <mdcProfiling>true</mdcProfiling> -->
+	<!-- <timestampPattern>yyyy-MM-dd HH:mm:ss,SSS</timestampPattern> -->
+	<!-- <maximumMessageSize>8192</maximumMessageSize> -->
+	<!-- <additionalFields>entorno=LOCAL,app=eeutil-rest-igae</additionalFields> -->
+	<!-- <additionalFieldTypes>entorno=String,app=String</additionalFieldTypes> -->
+	<!-- <filter class="ch.qos.logback.classic.filter.ThresholdFilter"> -->
+	<!-- <level>INFO</level> -->
+	<!-- </filter> -->
+	<!-- </appender> -->
+
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} [%-5p] [App:%X{idApli}] [IP_Client:%X{ipClient}] [Host_Client:%X{clientHost}] [URI:%X{clientURI}] [Content-Lengh:%X{contentLengh}] [UUID:%X{uUId}] [[extraParam:%X{ExtraParaM}]] [Thr:%t]: (%c{4}.%M:%L) %n %m%n [%F]</pattern>
+        </encoder>
+	</appender>
+	
+    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>${LOG_FILE}.log</file>
+	    <append>true</append>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">        
+	        <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+	        <maxHistory>10</maxHistory>
+	    </rollingPolicy>
+	    <encoder>
+	        <pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} [%-5p] [App:%X{idApli}] [IP_Client:%X{ipClient}] [Host_Client:%X{clientHost}] [URI:%X{clientURI}] [Content-Lengh:%X{contentLengh}] [UUID:%X{uUId}] [[extraParam:%X{ExtraParaM}]] [Thr:%t]: (%c{4}.%M:%L) %n %m%n [%F]</pattern>
+	    </encoder>
+	</appender>	
+
+<!-- 	<appender name="FILE-ROLLING" -->
+<!-- 		class="ch.qos.logback.core.rolling.RollingFileAppender"> -->
+<!-- 		<file>${LOG_FILE}.log</file> -->
+<!-- 		<append>true</append> -->
+<!-- 		<rollingPolicy -->
+<!-- 			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy"> -->
+<!-- 			<fileNamePattern>${LOG_FILE}-%d{yyyy-MM-dd}.log</fileNamePattern> -->
+<!-- 			 each archived file, size max 10MB -->
+<!-- 			<maxFileSize>10MB</maxFileSize> -->
+<!-- 			 total size of all archive files, if total size > 20GB, it will delete  -->
+<!-- 				old archived file --> 
+<!-- 			<totalSizeCap>100MB</totalSizeCap> -->
+<!-- 			 60 days to keep --> 
+<!-- 			<maxHistory>60</maxHistory> -->
+<!-- 			<property name="FILE_LOG_CHARSET" value="${FILE_LOG_CHARSET:-default}"/> -->
+<!-- 		</rollingPolicy> -->
+
+<!-- 		<encoder> -->
+<!-- 			<pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %m%n</pattern> -->
+<!-- 		</encoder> -->
+<!-- 	</appender> -->
+
+	<root level="ERROR">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE-ROLLING" />
+		<!-- <appender-ref ref="GELF-STASH" /> -->
+	</root>
+	<logger name="org.springframework.web" additivity="false" level="ERROR">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE-ROLLING" />
+		<!-- <appender-ref ref="GELF-STASH" /> -->
+	</logger>
+	<logger name="es.gob.aapp.eeutil.eeutilrestigae" additivity="false" level="ERROR">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE-ROLLING" />
+		<!-- <appender-ref ref="GELF-STASH" /> -->
+	</logger>
+</configuration>
