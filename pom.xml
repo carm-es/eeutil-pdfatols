@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.7.18</version>
+    <relativePath/>
+  </parent>
+  
+  <groupId>es.carm.eeutil</groupId>
+  <artifactId>pdfatols-mvn-base-wrapper</artifactId>
+  <version>6.8.2-CARM.1-SNAPSHOT</version>
+
+  <packaging>pom</packaging>
+
+  <name>eeutil-pdfatols</name>
+  <description>Componente de las Eeutils de la AGE, que gestiona PDFa</description>
+
+  <inceptionYear>2026</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>EUPL</name>
+      <url>https://joinup.ec.europa.eu/sites/default/files/eupl1.1.-licence-es_0.pdf</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:https://github.com/carm-es/eeutil-pdfatols.git</connection>
+    <developerConnection>scm:git:[push=]https://github.com/carm-es/eeutil-pdfatols.git[fetch=]https://github.com/carm-es/eeutil-pdfatols.git</developerConnection>
+    <url>https://github.com/carm-es/eeutil-pdfatols.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <properties>
+    <version.java>1.8</version.java>
+    <codificacion>UTF-8</codificacion>
+    <project.build.sourceEncoding>${codificacion}</project.build.sourceEncoding>
+    <propertiesEncoding>${codificacion}</propertiesEncoding>
+  </properties>
+
+  <modules>
+    <module>fuentes/eeutil-pdfatools</module>
+  </modules>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- Compilador de maven -->
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.11.0</version>
+          <configuration>
+            <source>${version.java}</source>
+            <target>${version.java}</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.3.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>3.0.1</version>
+          <configuration>
+            <tagNameFormat>v@{project.version}</tagNameFormat>
+          </configuration>
+        </plugin>
+        <!-- Formateo de código fuente -->
+        <plugin>
+          <groupId>net.revelc.code.formatter</groupId>
+          <artifactId>formatter-maven-plugin</artifactId>
+          <version>2.16.0</version>
+          <configuration>
+            <configFile>${maven.multiModuleProjectDirectory}/.mvn/eclipse-java-google-style.xml</configFile>
+            <encoding>UTF-8</encoding>
+            <lineEnding>AUTO</lineEnding>
+            <directories>
+              <directory>${basedir}/src/main/java</directory>
+              <directory>${basedir}/src/main/resources</directory>
+              <directory>${basedir}/src/test/java</directory>
+              <directory>${basedir}/src/test/resources</directory>
+            </directories>
+            <excludes>
+              <exclude>**/*.html</exclude>
+              <exclude>**/*.*css</exclude>
+              <exclude>**/*.wsdl</exclude>
+              <exclude>**/*.xml</exclude>
+              <exclude>**/*.xsd</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+        <!-- Añadir git-hook en el precomit para formatear automáticamente el código fuente -->
+        <plugin>
+          <groupId>io.github.phillipuniverse</groupId>
+          <artifactId>githook-maven-plugin</artifactId>
+          <version>1.0.5</version>
+          <configuration>
+            <hooks>
+              <pre-commit>mvn net.revelc.code.formatter:formatter-maven-plugin:format</pre-commit>
+            </hooks>
+          </configuration>
+        </plugin>
+        <!-- La configuración de este complemento se usa para almacenar solo la configuración
+				     de Eclipse m2e. No tiene influencia en la construcción de Maven en sí. -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>io.github.phillipuniverse</groupId>
+                    <artifactId>githook-maven-plugin</artifactId>
+                    <versionRange>[1.0.5,)</versionRange>
+                    <goals>
+                      <goal>install</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore/>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <!-- Por defecto, que formatee el código fuente -->
+      <plugin>
+        <groupId>net.revelc.code.formatter</groupId>
+        <artifactId>formatter-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>format</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Por defecto, instalar los hooks de git en el cliente, cuando se invoque 
+				a maven -->
+      <plugin>
+        <groupId>io.github.phillipuniverse</groupId>
+        <artifactId>githook-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>install</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
