@@ -1,6 +1,7 @@
 ## Set default behaviour, in case users don't have core.autocrlf set.
 * text=auto
 
+#/base-datos/** text eol=crlf
 
 ## Explicitly declare text files we want to always be normalized and converted to native line endings on checkout.
 
@@ -84,6 +85,7 @@ mvnw text
 gradlew text
 
 *.sql text
+*.SQL text
 
 # Heroku files:
 Procfile text
@@ -213,6 +215,11 @@ cacerts binary
 
 # PDF files:
 *.pdf binary
+
+# Office
+*.odt binary
+*.odtx binary
+*.zip_old binary
 
 # Video files:
 *.mov binary
