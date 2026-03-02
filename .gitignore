@@ -31,6 +31,7 @@ Session.vim
 bin/**
 tmp/**
 tmp/**/*
+*.rej
 *.tmp
 *.bak
 *.swp
@@ -91,3 +92,111 @@ classes
 build
 target
 .gradle
+
+# Para aplicaciones ANGULAR y Node...
+
+# compiled output
+dist
+tmp
+out-tsc
+logs
+
+# dependencies
+node_modules
+yarn.lock
+
+
+# IDEs and editors
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.awcache
+.vscode
+
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+.sass-cache
+connect.lock
+coverage
+libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+typings
+
+# example
+quick-start
+
+# tests
+coverage
+.nyc_output
+features/html-reporter/reports/*.html
+features/html-reporter/reports/*.json
+
+# e2e
+e2e/*.js
+e2e/*.map
+
+*.zip
+*__*.*
+*.*__*
+*\public*
+*\old*
+*__*
+*_java
+aplicacion/frontend/node/
+
+mvnw
+mvnw.cmd
+
+# Configuracion del front
+aplicacion/registro/src/main/webapp/resources
+aplicacion/registro/bin
+*.log
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+**/bin/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+qodana.yaml
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
