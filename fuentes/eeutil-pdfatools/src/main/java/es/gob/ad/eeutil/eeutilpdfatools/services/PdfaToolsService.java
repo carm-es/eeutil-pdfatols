@@ -264,7 +264,7 @@ public class PdfaToolsService {
     } catch (Exception e) {
       throw new EeutilPdfaToolsException(e.getMessage(), e);
     } finally {
-      if (process.isAlive()) {
+      if (process != null && process.isAlive()) {
         // si despues de la excepcion sigue vivo lo forzamos a cerrar
         process.destroyForcibly();
       }
